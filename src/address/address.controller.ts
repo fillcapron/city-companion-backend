@@ -35,7 +35,7 @@ export class AddressController {
             }
         }
 
-        const data = await this.serviceHttp.axiosRef.post(process.env.URL, JSON.stringify([query]), options);
+        const data = await this.serviceHttp.axiosRef.post(process.env.GEO_URL, JSON.stringify([query]), options);
         if (data.status === 200) {
             const re: any = await data.data[0];
             addressDto.latitude = re.geo_lat;
