@@ -8,13 +8,12 @@ import { CreatePlaceDto } from './dto/create-place.dto';
 @Injectable()
 export class PlacesService {
     constructor(
-        @InjectRepository(Places) private readonly repoPlace: Repository<Places>,
-        private readonly service: AddressService
+        @InjectRepository(Places) private readonly repoPlace: Repository<Places>
     ) { }
 
     public async create(dto: CreatePlaceDto): Promise<any> {
         const category: number = dto.category;
-        const address: number  = await this.service.create(dto.address);
+        const address: number  = dto.address;
 
         const place = await this.repoPlace.save({
             name: dto.name,
