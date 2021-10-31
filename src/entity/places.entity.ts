@@ -11,16 +11,16 @@ export class Places extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: 'varchar', length: 255, nullable: false})
+    @Column({ type: 'varchar', length: 255, nullable: false })
     name: string;
 
-    @Column({type: 'text'})
+    @Column({ type: 'text' })
     description: string;
 
-    @Column({type: 'real'})
+    @Column({ type: 'real', nullable: true })
     rating: number;
 
-    @Column({type: 'varchar', length: 100})
+    @Column({ type: 'varchar', length: 100 })
     website: string;
 
     @OneToMany(() => Tags, tag => tag.place)
