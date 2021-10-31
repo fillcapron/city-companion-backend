@@ -4,11 +4,6 @@ import { CreareAddressDto, IMessage, LatLon } from './dto/create-address.dto';
 import { Address } from '../entity/address.entity';
 import { HttpService } from '@nestjs/axios';
 require('dotenv').config();
-
-// const url = "https://cleaner.dadata.ru/api/v1/clean/address";
-// const token = "71c33457fd0b386eaca7967cef3d5124c55818c6";
-// const secret = "8128b3db8aa3397eab1b60fb362c7ffb03ec6547";
-
 @Controller('address')
 export class AddressController {
 
