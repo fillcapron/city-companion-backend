@@ -22,7 +22,7 @@ export class AddressController {
     }
 
     @Post()
-    public async create(@Body() addressDto: CreareAddressDto): Promise<number> {
+    public async create(@Body() addressDto: CreareAddressDto): Promise<number | {}> {
 
         const query: string = `${addressDto.city} ${addressDto.street} ${addressDto.house}`;
 
@@ -34,15 +34,17 @@ export class AddressController {
                 "X-Secret": process.env.SECRET
             }
         }
-
-        const data = await this.serviceHttp.axiosRef.post(process.env.GEO_URL, JSON.stringify([query]), options);
-        if (data.status === 200) {
-            const re: any = await data.data[0];
-            addressDto.latitude = re.geo_lat;
-            addressDto.longitude = re.geo_lon;
+        if (addressDto.city && addressDto.street && addressDto.house) {
+            const data = await this.serviceHttp.axiosRef.post(process.env.GEO_URL, JSON.stringify([query]), options);
+            if (data.status === 200) {
+                const re: any = await data.data[0];
+                addressDto.latitude = re.geo_lat;
+                addressDto.longitude = re.geo_lon;
+            }
+            return this.service.create(addressDto);
+        } else {
+            return { error: true, message: 'Вы передали пустые поля' }
         }
-
-        return this.service.create(addressDto);
     }
 
     @Delete(':id')
