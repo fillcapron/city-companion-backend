@@ -14,8 +14,8 @@ export class AddressService {
         return await this.repo.find();
     }
 
-    public async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {
-        const result = await this.repo.findOne({
+    public async getAddressId(addr: CreateAddressDto): Promise<IMessage | number> {
+        const res = await this.repo.findOne({
             select: ['id'] ,
             where: [
                 {city: addr.city},
@@ -23,8 +23,8 @@ export class AddressService {
                 {house: addr.house}
             ],
         });
-        if (result) {
-            return result;
+        if (res) {
+            return res.id;
         } else {
             return {error: true, message: 'Адрес не найден' }
         }
