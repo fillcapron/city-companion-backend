@@ -1,4 +1,4 @@
-export class CreareAddressDto {
+export class CreateAddressDto {
     country: string;
     region: string;
     city: string;
@@ -9,7 +9,8 @@ export class CreareAddressDto {
 }
 
 export interface IMessage {
-    message: string;
+    error?: boolean,
+    message: string,
 }
 
 export interface GeoData {

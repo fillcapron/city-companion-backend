@@ -2,29 +2,45 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Address } from '../entity/address.entity';
-import { CreareAddressDto, GeoData, IMessage } from './dto/create-address.dto';
+import { CreateAddressDto, GeoData, IMessage } from './dto/create-address.dto';
 
 
 @Injectable()
 export class AddressService {
 
-    constructor(
-        @InjectRepository(Address) private readonly repo: Repository<Address>) { }
+    constructor(@InjectRepository(Address) private readonly repo: Repository<Address>) { }
 
     public async getAll(): Promise<Address[]> {
         return await this.repo.find();
     }
 
-    public async getOne(id: number): Promise<IMessage | Address> {
+    public async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {
+        const result = await this.repo.findOne({
+            select: ['id'] ,
+            where: [
+                {city: addr.city},
+                {street: addr.street},
+                {house: addr.house}
+            ],
+        });
+        if (result) {
+            return result;
+        } else {
+            return {error: true, message: 'Адрес не найден' }
+        }
+    }
+
+    public async getAddress(id: number): Promise<IMessage | Address> {
+
         const result = await this.repo.findOne(id);
         if (result) {
             return result;
         } else {
-            return { message: 'Адрес не найден' }
+            return { error: true, message: 'Адрес не найден' }
         }
     }
 
-    public async create(addr: CreareAddressDto): Promise<number> {
+    public async create(addr: CreateAddressDto): Promise<number> {
         try {
             const address = await this.repo.create(addr).save();
             return address.id
