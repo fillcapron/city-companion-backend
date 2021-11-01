@@ -25,6 +25,7 @@ export class AddressController {
     public async create(@Body() addressDto: CreateAddressDto): Promise<number | {}> {
 
         const checkAddres: number | IMessage = await this.service.getAddressId(addressDto);
+        console.log(checkAddres)
 
         if (typeof (checkAddres) === 'number') {
             return checkAddres

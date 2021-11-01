@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Address } from '../entity/address.entity';
-import { CreateAddressDto, GeoData, IMessage } from './dto/create-address.dto';
+import { CreateAddressDto, IMessage } from './dto/create-address.dto';
 
 
 @Injectable()
@@ -18,9 +18,7 @@ export class AddressService {
         const res = await this.repo.findOne({
             select: ['id'] ,
             where: [
-                {city: addr.city},
-                {street: addr.street},
-                {house: addr.house}
+                {city: addr.city, street: addr.street, house: addr.house},
             ],
         });
         if (res) {

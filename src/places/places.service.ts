@@ -18,7 +18,6 @@ export class PlacesService {
         const place = await this.repoPlace.save({
             name: dto.name,
             description: dto.description,
-            rating: dto.rating,
             website: dto.website,
             category: {id: category},
             address: {id: address }
