@@ -13,7 +13,7 @@ export class AddressController {
 
     @Get()
     public getAll(): Promise<Address[]> {
-        return this.service.getAll();
+        return this.service.getAllAddress();
     }
 
     @Get(':id')
@@ -22,13 +22,12 @@ export class AddressController {
     }
 
     @Post()
-    public async create(@Body() addressDto: CreateAddressDto): Promise<number | {}> {
+    public async create(@Body() addressDto: CreateAddressDto): Promise<number | IMessage> {
 
         const checkAddres: number | IMessage = await this.service.getAddressId(addressDto);
-        console.log(checkAddres)
 
-        if (typeof (checkAddres) === 'number') {
-            return checkAddres
+        if (typeof checkAddres === 'number') {
+            return checkAddres;
         }
 
         const query: string = `${addressDto.city} ${addressDto.street} ${addressDto.house}`;
@@ -41,6 +40,7 @@ export class AddressController {
                 "X-Secret": process.env.SECRET
             }
         }
+
         if (addressDto.city && addressDto.street && addressDto.house) {
             const data = await this.serviceHttp.axiosRef.post(process.env.GEO_URL, JSON.stringify([query]), options);
             if (data.status === 200) {
@@ -48,7 +48,7 @@ export class AddressController {
                 addressDto.latitude = re.geo_lat;
                 addressDto.longitude = re.geo_lon;
             }
-            return this.service.create(addressDto);
+            return this.service.createAddress(addressDto);
         } else {
             return { error: true, message: 'Вы передали пустые поля' }
         }
@@ -56,7 +56,7 @@ export class AddressController {
 
     @Delete(':id')
     public delete(@Param('id') id: number): Promise<void> {
-        return this.service.delete(id);
+        return this.service.deleteAddress(id);
     }
 }
 

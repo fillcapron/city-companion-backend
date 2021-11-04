@@ -8,6 +8,6 @@ export class PlacesController {
 
     @Post()
     create(@Body() dto: CreatePlaceDto): Promise<any>{
-        return this.service.create(dto);
+        return this.service.createPlace(dto);
     } 
 }

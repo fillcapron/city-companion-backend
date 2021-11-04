@@ -8,7 +8,7 @@ import { createTagsDto } from './dto/create-tags.dto';
 export class TagsService {
     constructor(@InjectRepository(Tags) private readonly repo: Repository<Tags>) { }
 
-    async create(dto: createTagsDto): Promise<number | {}> {
+    async createTag(dto: createTagsDto): Promise<number | {}> {
         try {
             const res = await this.repo.save({
                 name: dto.name,
@@ -22,11 +22,11 @@ export class TagsService {
         
     }
 
-    async getAll() {
+    async getAllTags() {
         return this.repo.find();
     }
 
-    async getOne(id: number) {
+    async getOneTag(id: number) {
         return this.repo.findOneOrFail(id, {relations: ['category', 'place']});
     }
 }

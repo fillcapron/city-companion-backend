@@ -8,16 +8,16 @@ export class TagsController {
     
     @Post()
     create(@Body() tag: createTagsDto): Promise<number | {}> {
-        return this.tagsService.create(tag);
+        return this.tagsService.createTag(tag);
     }
 
     @Get()
     getAll() {
-        return this.tagsService.getAll();
+        return this.tagsService.getAllTags();
     }
 
     @Get(':id')
     getOne(@Param('id') id: number){
-        return this.tagsService.getOne(id);
+        return this.tagsService.getOneTag(id);
     }
 }

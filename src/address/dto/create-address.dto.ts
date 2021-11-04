@@ -1,10 +1,19 @@
+import { IsString } from "class-validator";
+
 export class CreateAddressDto {
-    country: string;
-    region: string;
-    city: string;
-    street: string;
-    house: string;
+    @IsString({message: 'Должно быть строкой'})
+    readonly country: string;
+    @IsString({message: 'Должно быть строкой'})
+    readonly region: string;
+    @IsString({message: 'Должно быть строкой'})
+    readonly city: string;
+    @IsString({message: 'Должно быть строкой'})
+    readonly street: string;
+    @IsString({message: 'Должно быть строкой'})
+    readonly house: string;
+    @IsString({message: 'Должно быть строкой'})
     latitude: string;
+    @IsString({message: 'Должно быть строкой'})
     longitude: string;
 }
 

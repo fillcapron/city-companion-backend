@@ -10,19 +10,19 @@ export class AddressService {
 
     constructor(@InjectRepository(Address) private readonly repo: Repository<Address>) { }
 
-    public async getAll(): Promise<Address[]> {
+    public async getAllAddress(): Promise<Address[]> {
         return await this.repo.find();
     }
 
     public async getAddressId(addr: CreateAddressDto): Promise<IMessage | number> {
-        const res = await this.repo.findOne({
+        const address = await this.repo.findOne({
             select: ['id'] ,
             where: [
                 {city: addr.city, street: addr.street, house: addr.house},
             ],
         });
-        if (res) {
-            return res.id;
+        if (address) {
+            return address.id;
         } else {
             return {error: true, message: 'Адрес не найден' }
         }
@@ -30,26 +30,26 @@ export class AddressService {
 
     public async getAddress(id: number): Promise<IMessage | Address> {
 
-        const result = await this.repo.findOne(id);
-        if (result) {
-            return result;
+        const address = await this.repo.findOne(id);
+        if (address) {
+            return address;
         } else {
             return { error: true, message: 'Адрес не найден' }
         }
     }
 
-    public async create(addr: CreateAddressDto): Promise<number> {
+    public async createAddress(addr: CreateAddressDto): Promise<number | IMessage> {
         try {
             const address = await this.repo.create(addr).save();
             return address.id
         } catch (e) {
             console.log(e);
-            return
+            return {error: true, message: 'Ошибка создания адреса'}
         }
     }
 
-    public async delete(id: number): Promise<void> {
-        const res = this.repo.delete(id)
-        res.then(r => console.log(r))
+    public async deleteAddress(id: number): Promise<void> {
+        const address = this.repo.delete(id)
+        address.then(r => console.log(r))
     }
 }

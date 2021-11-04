@@ -9,21 +9,21 @@ export class CategoryController {
 
     @Get()
     public getAll(): Promise<Categories[]> {
-        return this.service.getAll();
+        return this.service.getAllCategoties();
     }
 
     @Get(':id')
-    public async getOneCategory(@Param('id') id: number): Promise<Categories | {}> {
-        return await this.service.getOne(id);
+    public async getOne(@Param('id') id: number): Promise<Categories | {}> {
+        return await this.service.getOneCategory(id);
     }
 
     @Post()
-    public async createCategory(@Body() dto: CreateCategoryDto): Promise<any> {
-        return this.service.create(dto);
+    public async create(@Body() dto: CreateCategoryDto): Promise<any> {
+        return this.service.createCategory(dto);
     }
 
     @Delete(':id')
-    public deleteCategory(@Param('id') id: number): Promise<void> {
-        return this.service.delete(id);
+    public delete(@Param('id') id: number): Promise<void> {
+        return this.service.deleteCategory(id);
     }
 }
