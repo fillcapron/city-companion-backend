@@ -25,4 +25,8 @@ export class PlacesService {
     public async getOnePlace(name: string) {
         return await this.repoPlace.findOneOrFail(name);
     }
+
+    public async getPlaces() {
+        return await this.repoPlace.find();
+    }
 }
