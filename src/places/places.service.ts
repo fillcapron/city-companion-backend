@@ -27,6 +27,6 @@ export class PlacesService {
     }
 
     public async getPlaces() {
-        return await this.repoPlace.find({relations: ['category', 'tags', 'images']});
+        return await this.repoPlace.find({relations: ['category', 'tags', 'images', 'address']});
     }
 }
