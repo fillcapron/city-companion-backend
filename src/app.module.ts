@@ -7,7 +7,7 @@ import { ImagesModule } from './images/images.module';
 import { PlacesModule } from './places/places.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { TagsModule } from './tags/tags.module';
-import { UserModule } from './users/user.module';
+import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
