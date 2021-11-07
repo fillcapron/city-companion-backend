@@ -33,8 +33,13 @@ export class CategoryService {
         }
     }
 
-    public async deleteCategory(id: number): Promise<void> {
-        const res = this.repo.delete(id)
-        res.then(r => console.log(r))
+    public async updateGategory(dto: CreateCategoryDto): Promise<IMessage> {
+        const category = await this.repo.update(dto.id, dto);
+        return { message: 'Категория обновлена' }
+    }
+
+    public async deleteCategory(id: number): Promise<IMessage> {
+        const category = await this.repo.delete(id);
+        return { message: `Категория  удалена` }
     }
 }
