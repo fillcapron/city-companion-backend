@@ -27,7 +27,7 @@ export class UserService {
     }
 
     async getAllUsers(): Promise<User[]> {
-        const users = await this.repo.find();
+        const users = await this.repo.find({select: ['id', 'name', 'email']});
         return users;
     }
 
