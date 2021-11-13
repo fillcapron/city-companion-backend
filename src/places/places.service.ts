@@ -9,7 +9,7 @@ import { CreatePlaceDto } from './dto/create-place.dto';
 export class PlacesService {
     constructor(@InjectRepository(Places) private readonly repoPlace: Repository<Places>) { }
 
-    public async createPlace(dto: CreatePlaceDto): Promise<Places> {
+    async createPlace(dto: CreatePlaceDto): Promise<Places> {
         const category: number = dto.category.id;
         const address: number  = dto.address.id;
 
@@ -22,15 +22,15 @@ export class PlacesService {
         });
     }
 
-    public async getOnePlace(name: string) {
+    async getOnePlace(name: string): Promise<Places> {
         return await this.repoPlace.findOneOrFail(name);
     }
 
-    public async getPlaces() {
+    async getPlaces() {
         return await this.repoPlace.find({relations: ['category', 'tags', 'images', 'address']});
     }
 
-    public async deletePlace(id: number): Promise<IMessage> {
+    async deletePlace(id: number): Promise<IMessage> {
         const place = await this.repoPlace.delete(id);
         return { message: 'Место удалено'};
     }

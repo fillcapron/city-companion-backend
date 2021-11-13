@@ -12,17 +12,17 @@ export class AddressController {
         private readonly serviceHttp: HttpService) { }
 
     @Get()
-    public getAll(): Promise<Address[]> {
+    getAll(): Promise<Address[]> {
         return this.service.getAllAddress();
     }
 
     @Get(':id')
-    public getAddress(@Param('id') id: number): Promise<Address | IMessage> {
+    getAddress(@Param('id') id: number): Promise<Address | IMessage> {
         return this.service.getAddress(id);
     }
 
     @Post()
-    public async create(@Body() addressDto: CreateAddressDto): Promise<Address | IMessage> {
+    async create(@Body() addressDto: CreateAddressDto): Promise<Address | IMessage> {
 
         const checkAddres: Address | IMessage = await this.service.getAddressId(addressDto);
 
@@ -55,7 +55,7 @@ export class AddressController {
     }
 
     @Delete(':id')
-    public delete(@Param('id') id: number): Promise<void> {
+    delete(@Param('id') id: number): Promise<void> {
         return this.service.deleteAddress(id);
     }
 }

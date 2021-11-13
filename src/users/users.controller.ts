@@ -10,27 +10,27 @@ export class AuthController {
     constructor(private readonly userService: UserService) { }
 
     @Get(':id')
-    public getUser(@Param('id') id: number): Promise<User> {
+    getUser(@Param('id') id: number): Promise<User> {
         return this.userService.getOneUser(id);
     }
 
     @Post()
-    public create(@Body() userDto: CreateUserDto): Promise<User> {
+    create(@Body() userDto: CreateUserDto): Promise<User> {
         return this.userService.createUser(userDto);
     }
 
     @Get()
-    public getAll(): Promise<User[]> {
+    getAll(): Promise<User[]> {
         return this.userService.getAllUsers();
     }
 
     @Delete(':id')
-    public delete(@Param() id: number): Promise<IMessage> {
+    delete(@Param() id: number): Promise<IMessage> {
         return this.userService.deleteUser(id);
     }
 
     @Patch()
-    public updateUser(@Body() dto: CreateUserDto): Promise<IMessage> {
+    updateUser(@Body() dto: CreateUserDto): Promise<IMessage> {
         return this.userService.updateUser(dto);
     }
 

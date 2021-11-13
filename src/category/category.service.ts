@@ -9,11 +9,11 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 export class CategoryService {
     constructor(@InjectRepository(Categories) private readonly repo: Repository<Categories>) { }
 
-    public async getAllCategoties(): Promise<Categories[]> {
+    async getAllCategoties(): Promise<Categories[]> {
         return await this.repo.find({ relations: ['tags'] });
     }
 
-    public async getOneCategory(id: number): Promise<Categories | {}> {
+    async getOneCategory(id: number): Promise<Categories | {}> {
         const result = await this.repo.findOne(id, { relations: ['tags'] });
         if (result) {
             return result;
@@ -22,7 +22,7 @@ export class CategoryService {
         }
     }
 
-    public async createCategory(categoryDto: CreateCategoryDto): Promise<Categories | IMessage> {
+    async createCategory(categoryDto: CreateCategoryDto): Promise<Categories | IMessage> {
         try {
             const category = await this.repo.save(categoryDto);
             const done = await category;
@@ -33,12 +33,12 @@ export class CategoryService {
         }
     }
 
-    public async updateGategory(dto: CreateCategoryDto): Promise<IMessage> {
+    async updateGategory(dto: CreateCategoryDto): Promise<IMessage> {
         const category = await this.repo.update(dto.id, dto);
         return { message: 'Категория обновлена' }
     }
 
-    public async deleteCategory(id: number): Promise<IMessage> {
+    async deleteCategory(id: number): Promise<IMessage> {
         const category = await this.repo.delete(id);
         return { message: `Категория  удалена` }
     }

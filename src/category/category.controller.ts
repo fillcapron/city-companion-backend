@@ -9,27 +9,27 @@ export class CategoryController {
     constructor(private readonly service: CategoryService) { }
 
     @Get()
-    public getAll(): Promise<Categories[]> {
+    getAll(): Promise<Categories[]> {
         return this.service.getAllCategoties();
     }
 
     @Get(':id')
-    public getOne(@Param('id') id: number): Promise<Categories | {}> {
+    getOne(@Param('id') id: number): Promise<Categories | {}> {
         return this.service.getOneCategory(id);
     }
 
     @Post()
-    public create(@Body() dto: CreateCategoryDto): Promise<any> {
+    create(@Body() dto: CreateCategoryDto): Promise<any> {
         return this.service.createCategory(dto);
     }
 
     @Delete(':id')
-    public delete(@Param('id') id: number): Promise<IMessage> {
+    delete(@Param('id') id: number): Promise<IMessage> {
         return this.service.deleteCategory(id);
     }
 
     @Patch()
-    public updateCategory(
+    updateCategory(
         @Body() dto: CreateCategoryDto
     ): Promise<IMessage> {
         return this.service.updateGategory(dto);
