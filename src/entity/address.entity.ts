@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Categories } from "./category.entity";
+import { Places } from "./places.entity";
 
 @Entity('address')
 export class Address extends BaseEntity {
@@ -25,4 +27,12 @@ export class Address extends BaseEntity {
 
     @Column({nullable: false, type: "varchar", length: 50})
     longitude: string;
+
+    @ManyToOne(() => Categories)
+    @JoinColumn()
+    category: Categories;
+
+    @OneToMany(() => Places, places => places.address)
+    @JoinTable()
+    place: Places[]
 }

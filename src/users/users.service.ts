@@ -4,11 +4,12 @@ import { IMessage } from 'src/address/dto/create-address.dto';
 import { User } from 'src/entity/users.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/users.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private readonly repo: Repository<User>) { }
+    constructor(@InjectRepository(User) private repo: Repository<User>) { }
 
     async getUserByEmail(email: string): Promise<CreateUserDto> {
         const findUser = await this.repo.findOne({
@@ -21,11 +22,11 @@ export class UserService {
         return findUser;
     }
 
-    async createUser(dto: CreateUserDto): Promise<User> {
-        return await this.repo.save(dto);
+    async createUser(userDto: CreateUserDto): Promise<User> {
+        return await this.repo.save(userDto);
     }
 
-    async getAllUsers() {
+    async getAllUsers(): Promise<User[]> {
         const users = await this.repo.find();
         return users;
     }
@@ -40,8 +41,9 @@ export class UserService {
         return user;
     }
 
-    async updateUser(dto: CreateUserDto): Promise<IMessage> {
-        const user = await this.repo.update(dto.id, dto);
+    async updateUser(userDto: CreateUserDto): Promise<IMessage> {
+        const hashPassword = await bcrypt.hash(userDto.password, 5);
+        const user = await this.repo.update(userDto.id, {...userDto, password: hashPassword });
         return {message: 'Пользователь обновлен'}
     }
 }

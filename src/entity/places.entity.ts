@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "./address.entity";
 import { Categories } from "./category.entity";
 import { Images } from "./images.entity";
@@ -32,11 +32,11 @@ export class Places extends BaseEntity {
     @OneToMany(() => Reviews, review => review.place)
     reviews: Reviews[];
 
-    @OneToOne(() => Address)
+    @ManyToOne(() => Address, address => address.place)
     @JoinColumn()
     address: Address;
 
-    @OneToOne(() => Categories)
+    @ManyToOne(() => Categories)
     @JoinColumn()
     category: Categories;
 }
