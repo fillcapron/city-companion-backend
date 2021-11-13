@@ -15,18 +15,22 @@ export class TagsService {
                 category: { id: dto.categoryId }
             })
             return res.id
-        } catch(e) {
+        } catch (e) {
             console.log(e);
-            return {message: "Ошибка создания тэга"}
+            return { message: "Ошибка создания тэга" }
         }
-        
+
     }
 
     async getAllTags() {
         return this.repo.find();
     }
 
-    async getOneTag(id: number) {
-        return this.repo.findOneOrFail(id, {relations: ['category', 'place']});
+    async getOneTag(name: string) {
+        return this.repo.findOneOrFail(name, { relations: ['category', 'place'] });
+    }
+
+    async deleteTag(id: number) {
+        return this.repo.delete(id);
     }
 }
