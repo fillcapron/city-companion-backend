@@ -14,7 +14,7 @@ export class AddressService {
         return await this.repo.find();
     }
 
-    public async getAddressId(addr: CreateAddressDto): Promise<IMessage | number> {
+    public async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {
         const address = await this.repo.findOne({
             select: ['id'] ,
             where: [
@@ -22,7 +22,7 @@ export class AddressService {
             ],
         });
         if (address) {
-            return address.id;
+            return address;
         } else {
             return {error: true, message: 'Адрес не найден' }
         }
@@ -38,10 +38,10 @@ export class AddressService {
         }
     }
 
-    public async createAddress(addr: CreateAddressDto): Promise<number | IMessage> {
+    public async createAddress(addr: CreateAddressDto): Promise<Address | IMessage > {
         try {
             const address = await this.repo.create(addr).save();
-            return address.id
+            return address
         } catch (e) {
             console.log(e);
             return {error: true, message: 'Ошибка создания адреса'}

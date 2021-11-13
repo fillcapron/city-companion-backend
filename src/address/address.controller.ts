@@ -22,9 +22,9 @@ export class AddressController {
     }
 
     @Post()
-    public async create(@Body() addressDto: CreateAddressDto): Promise<number | IMessage> {
+    public async create(@Body() addressDto: CreateAddressDto): Promise<Address | IMessage> {
 
-        const checkAddres: number | IMessage = await this.service.getAddressId(addressDto);
+        const checkAddres: Address | IMessage = await this.service.getAddressId(addressDto);
 
         if (typeof checkAddres === 'number') {
             return checkAddres;
