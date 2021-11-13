@@ -15,7 +15,7 @@ export class AuthController {
     }
 
     @Post()
-    public create(@Body() userDto: CreateUserDto): Promise<IMessage> {
+    public create(@Body() userDto: CreateUserDto): Promise<User> {
         return this.userService.createUser(userDto);
     }
 

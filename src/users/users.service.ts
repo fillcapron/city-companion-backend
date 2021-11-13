@@ -21,9 +21,8 @@ export class UserService {
         return findUser;
     }
 
-    async createUser(dto: CreateUserDto): Promise<IMessage> {
-        const user = await this.repo.save(dto);
-        return { message: 'Пользователь создан' };
+    async createUser(dto: CreateUserDto): Promise<User> {
+        return await this.repo.save(dto);
     }
 
     async getAllUsers() {
