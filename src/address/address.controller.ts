@@ -55,7 +55,7 @@ export class AddressController {
     }
 
     @Delete(':id')
-    delete(@Param('id') id: number): Promise<void> {
+    delete(@Param('id') id: number): Promise<IMessage> {
         return this.service.deleteAddress(id);
     }
 }
