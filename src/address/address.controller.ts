@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { AddressService } from './address.service';
 import { CreateAddressDto, IMessage } from './dto/create-address.dto';
 import { Address } from '../entity/address.entity';
@@ -57,6 +57,11 @@ export class AddressController {
     @Delete(':id')
     delete(@Param('id') id: number): Promise<IMessage> {
         return this.service.deleteAddress(id);
+    }
+
+    @Patch()
+    update(@Body() addressDto: CreateAddressDto): Promise<IMessage> {
+        return this.service.updateAddress(addressDto);
     }
 }
 

@@ -53,7 +53,7 @@ export class AddressService {
         return { message: 'Адрес удален' };
     }
 
-    async updateAddress(dto: Address): Promise<IMessage> {
+    async updateAddress(dto: CreateAddressDto): Promise<IMessage> {
         const address = this.repo.update(dto.id, dto);
         return { message: 'Адрес обновлен' };
     }

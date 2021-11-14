@@ -1,20 +1,38 @@
+import { Type } from "class-transformer";
 import { IsString } from "class-validator";
+import { Categories } from "src/entity/category.entity";
+import { Places } from "src/entity/places.entity";
 
 export class CreateAddressDto {
+
+    readonly id: number;
+
     @IsString({message: 'Должно быть строкой'})
     readonly country: string;
+
     @IsString({message: 'Должно быть строкой'})
     readonly region: string;
+
     @IsString({message: 'Должно быть строкой'})
     readonly city: string;
+
     @IsString({message: 'Должно быть строкой'})
     readonly street: string;
+
     @IsString({message: 'Должно быть строкой'})
     readonly house: string;
+
     @IsString({message: 'Должно быть строкой'})
     latitude: string;
+
     @IsString({message: 'Должно быть строкой'})
     longitude: string;
+
+    @Type(() => Categories)
+    category: Categories;
+    
+    @Type(() => Places)
+    place: Places[];
 }
 
 export interface IMessage {
