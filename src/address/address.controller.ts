@@ -39,7 +39,7 @@ export class AddressController {
                 "Authorization": "Token " + process.env.TOKEN,
                 "X-Secret": process.env.SECRET
             }
-        }
+        };
 
         if (addressDto.city && addressDto.street && addressDto.house) {
             const data = await this.serviceHttp.axiosRef.post(process.env.GEO_URL, JSON.stringify([query]), options);
@@ -50,7 +50,7 @@ export class AddressController {
             }
             return this.service.createAddress(addressDto);
         } else {
-            return { error: true, message: 'Вы передали пустые поля' }
+            return { error: true, message: 'Вы передали пустые поля' };
         }
     }
 

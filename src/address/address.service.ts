@@ -10,46 +10,51 @@ export class AddressService {
 
     constructor(@InjectRepository(Address) private readonly repo: Repository<Address>) { }
 
-    public async getAllAddress(): Promise<Address[]> {
+    async getAllAddress(): Promise<Address[]> {
         return await this.repo.find();
     }
 
-    public async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {
+    async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {
         const address = await this.repo.findOne({
-            select: ['id'] ,
+            select: ['id'],
             where: [
-                {city: addr.city, street: addr.street, house: addr.house},
+                { city: addr.city, street: addr.street, house: addr.house },
             ],
         });
         if (address) {
             return address;
         } else {
-            return {error: true, message: 'Адрес не найден' }
+            return { error: true, message: 'Адрес не найден' };
         }
     }
 
-    public async getAddress(id: number): Promise<IMessage | Address> {
+    async getAddress(id: number): Promise<IMessage | Address> {
 
         const address = await this.repo.findOne(id);
         if (address) {
             return address;
         } else {
-            return { error: true, message: 'Адрес не найден' }
+            return { error: true, message: 'Адрес не найден' };
         }
     }
 
-    public async createAddress(addr: CreateAddressDto): Promise<Address | IMessage > {
+    async createAddress(addr: CreateAddressDto): Promise<Address | IMessage> {
         try {
             const address = await this.repo.create(addr).save();
-            return address
+            return address;
         } catch (e) {
             console.log(e);
-            return {error: true, message: 'Ошибка создания адреса'}
+            return { error: true, message: 'Ошибка создания адреса' };
         }
     }
 
-    public async deleteAddress(id: number): Promise<void> {
-        const address = this.repo.delete(id)
-        address.then(r => console.log(r))
+    async deleteAddress(id: number): Promise<IMessage> {
+        const address = this.repo.delete(id);
+        return { message: 'Адрес удален' };
+    }
+
+    async updateAddress(dto: Address): Promise<IMessage> {
+        const address = this.repo.update(dto.id, dto);
+        return { message: 'Адрес обновлен' };
     }
 }
