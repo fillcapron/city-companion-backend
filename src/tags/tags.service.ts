@@ -9,15 +9,15 @@ import { createTagsDto } from './dto/create-tags.dto';
 export class TagsService {
     constructor(@InjectRepository(Tags) private readonly repo: Repository<Tags>) { }
 
-    async createTag(dto: createTagsDto): Promise<IMessage> {
+    async createTag(dto: createTagsDto): Promise<Tags | IMessage> {
         try {
             const res = await this.repo.save({
                 name: dto.name,
                 category: { id: dto.categoryId }
             })
-            return { message: 'Тег добавлен' }
+            return res
+
         } catch (e) {
-            console.log(e);
             return { message: 'Ошибка добавления тэга' }
         }
 
@@ -32,7 +32,13 @@ export class TagsService {
     }
 
     async deleteTag(id: number): Promise<IMessage> {
-        const tag = await this.repo.delete(id);
-        return { message: 'Тег удален' }
+        try {
+            const tag = await this.repo.delete(id);
+            return { message: 'Тег удален' }
+        } catch (e) {
+            return { error: true, message: 'Ошибка удаления тега' }
+        }
+
+
     }
 }

@@ -9,7 +9,7 @@ export class TagsController {
     constructor(private readonly tagsService: TagsService) { }
 
     @Post()
-    create(@Body() tag: createTagsDto): Promise<IMessage> {
+    create(@Body() tag: createTagsDto): Promise<Tags | IMessage> {
         return this.tagsService.createTag(tag);
     }
 
