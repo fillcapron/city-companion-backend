@@ -26,20 +26,19 @@ export class CategoryService {
         try {
             const category = await this.repo.save(categoryDto);
             const done = await category;
-            return { message: `Категория "${done.name}" добавлена` };
+            return { message: `Категория "${done.name}" добавлена`,meta: done };
         } catch (e) {
-            console.log(e)
-            return { message: 'Ошибка создания категории' }
+            return { error: true, message: 'Ошибка создания категории', meta: e }
         }
     }
 
     async updateGategory(dto: CreateCategoryDto): Promise<IMessage> {
         const category = await this.repo.update(dto.id, dto);
-        return { message: 'Категория обновлена' }
+        return { message: 'Категория обновлена', meta: category }
     }
 
     async deleteCategory(id: number): Promise<IMessage> {
         const category = await this.repo.delete(id);
-        return { message: `Категория  удалена` }
+        return { message: `Категория  удалена`, meta: category }
     }
 }

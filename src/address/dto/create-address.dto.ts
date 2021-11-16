@@ -38,6 +38,7 @@ export class CreateAddressDto {
 export interface IMessage {
     error?: boolean,
     message: string,
+    meta?: any
 }
 
 export interface GeoData {

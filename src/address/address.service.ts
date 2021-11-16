@@ -43,18 +43,17 @@ export class AddressService {
             const address = await this.repo.create(addr).save();
             return address;
         } catch (e) {
-            console.log(e);
-            return { error: true, message: 'Ошибка создания адреса' };
+            return { error: true, message: 'Ошибка создания адреса', meta: e };
         }
     }
 
     async deleteAddress(id: number): Promise<IMessage> {
         const address = this.repo.delete(id);
-        return { message: 'Адрес удален' };
+        return { message: 'Адрес удален', meta: address };
     }
 
     async updateAddress(dto: CreateAddressDto): Promise<IMessage> {
         const address = this.repo.update(dto.id, dto);
-        return { message: 'Адрес обновлен' };
+        return { message: 'Адрес обновлен', meta:  address };
     }
 }

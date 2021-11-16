@@ -18,7 +18,7 @@ export class TagsService {
             return res
 
         } catch (e) {
-            return { message: 'Ошибка добавления тэга' }
+            return { message: 'Ошибка добавления тэга', meta: e }
         }
 
     }
@@ -34,9 +34,9 @@ export class TagsService {
     async deleteTag(id: number): Promise<IMessage> {
         try {
             const tag = await this.repo.delete(id);
-            return { message: 'Тег удален' }
+            return { message: 'Тег удален', meta: tag }
         } catch (e) {
-            return { error: true, message: 'Ошибка удаления тега' }
+            return { error: true, message: 'Ошибка удаления тега', meta: e }
         }
 
 

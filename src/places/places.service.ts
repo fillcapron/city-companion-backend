@@ -33,11 +33,11 @@ export class PlacesService {
 
     async deletePlace(id: number): Promise<IMessage> {
         const place = await this.repoPlace.delete(id);
-        return { message: 'Место удалено' };
+        return { message: 'Место удалено', meta: place };
     }
 
     public async updatePlace(dto: CreatePlaceDto): Promise<IMessage> {
         const place = await this.repoPlace.update(dto.id, dto)
-        return { message: 'Место обновлено' };
+        return { message: 'Место обновлено', meta: place };
     }
 }

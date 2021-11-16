@@ -19,11 +19,11 @@ export class ReviewsService {
 
     async createReview(dto: CreateReviewDto): Promise<IMessage> {
         const review = await this.repo.create(dto).save();
-        return { message: 'Комментарий создан' }
+        return { message: 'Комментарий создан', meta: review }
     }
 
     async deleteReview(id: number): Promise<IMessage> {
         const review = await this.repo.delete(id);
-        return {message: 'Комментарий удален'}
+        return {message: 'Комментарий удален', meta: review}
     }
 }
