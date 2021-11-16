@@ -38,7 +38,17 @@ export class TagsService {
         } catch (e) {
             return { error: true, message: 'Ошибка удаления тега', meta: e }
         }
+    }
 
-
+    async CreateTags(tags: Tags[]) {
+        try {
+            return await this.repo.createQueryBuilder()
+                .insert()
+                .into(Tags)
+                .values(tags)
+                .execute()
+        } catch (e) {
+            return { erorr: true, message: 'Ошибка добавления тегов', meta: e }
+        }
     }
 }

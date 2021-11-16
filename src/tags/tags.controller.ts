@@ -27,4 +27,9 @@ export class TagsController {
     delete(@Param() id: number): Promise<IMessage> {
         return this.tagsService.deleteTag(id);
     }
+
+    @Post('all')
+    createTags(@Body() tags:  Tags[]){
+        return this.tagsService.CreateTags(tags);
+    }
 }
