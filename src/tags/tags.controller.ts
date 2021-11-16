@@ -33,8 +33,8 @@ export class TagsController {
         return this.tagsService.CreateTags(tags);
     }
 
-    @Delete('all/:id')
-    deleteTags(@Param() id: number) {
-        return this.tagsService.deleteTags(id);
-    }
+    // @Delete('all/:id')
+    // deleteTags(@Param() id: number) {
+    //     return this.tagsService.deleteTags(id);
+    // }
 }

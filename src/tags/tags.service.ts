@@ -49,15 +49,16 @@ export class TagsService {
         }
     }
 
-    async deleteTags(id: number) {
-        try {
-            return await this.repo.createQueryBuilder()
-                .delete()
-                .from(Tags)
-                .where("id = :id", { id })
-                .execute()
-        } catch (e) {
-            return { error: true, message: 'Ошибка удаления тегов', meta: e }
-        }
-    }
+    // Убрал для проверки удаления тегов
+    // async deleteTags(id: number) {
+    //     try {
+    //         return await this.repo.createQueryBuilder()
+    //             .delete()
+    //             .from(Tags)
+    //             .where("id = :id", { id })
+    //             .execute()
+    //     } catch (e) {
+    //         return { error: true, message: 'Ошибка удаления тегов', meta: e }
+    //     }
+    // }
 }
