@@ -29,7 +29,12 @@ export class TagsController {
     }
 
     @Post('all')
-    createTags(@Body() tags:  Tags[]){
+    createTags(@Body() tags: Tags[]) {
         return this.tagsService.CreateTags(tags);
+    }
+
+    @Delete('all/:id')
+    deleteTags(@Param() id: number) {
+        return this.tagsService.deleteTags(id);
     }
 }
