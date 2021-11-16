@@ -48,4 +48,16 @@ export class TagsService {
             return { erorr: true, message: 'Ошибка добавления тегов', meta: e }
         }
     }
+
+    async deleteTags(id: number) {
+        try {
+            return await this.repo.createQueryBuilder()
+                .delete()
+                .from(Tags)
+                .where("id = :id", { id })
+                .execute()
+        } catch (e) {
+            return { error: true, message: 'Ошибка удаления тегов', meta: e }
+        }
+    }
 }
