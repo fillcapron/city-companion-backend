@@ -11,11 +11,8 @@ export class TagsService {
 
     async createTag(dto: createTagsDto): Promise<Tags | IMessage> {
         try {
-            const res = await this.repo.save({
-                name: dto.name,
-                category: { id: dto.categoryId }
-            })
-            return res
+            const res = await this.repo.save(dto);
+            return res;
 
         } catch (e) {
             return { message: 'Ошибка добавления тэга', meta: e }
