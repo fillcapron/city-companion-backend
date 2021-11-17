@@ -33,10 +33,8 @@ export class Places extends BaseEntity {
     reviews: Reviews[];
 
     @ManyToOne(() => Address, address => address.place)
-    @JoinColumn()
     address: Address;
 
     @ManyToOne(() => Categories)
-    @JoinColumn()
     category: Categories;
 }

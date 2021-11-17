@@ -11,10 +11,8 @@ export class Tags extends BaseEntity {
     name: string;
 
     @ManyToOne(() => Categories, category => category.tags, { onDelete: 'CASCADE' })
-    @JoinColumn()
     category: Categories;
 
     @ManyToOne(() => Places, place => place.tags, { onDelete: 'CASCADE' })
-    @JoinColumn()
     place: Places;
 }

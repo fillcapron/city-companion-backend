@@ -29,10 +29,8 @@ export class Address extends BaseEntity {
     longitude: string;
 
     @ManyToOne(() => Categories, categories => categories.address, { onDelete: 'CASCADE' })
-    @JoinColumn()
     category: Categories;
 
     @OneToMany(() => Places, places => places.address)
-    @JoinTable()
     place: Places[]
 }
