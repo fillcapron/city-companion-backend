@@ -12,6 +12,6 @@ export class Reviews extends BaseEntity {
     @Column({nullable: false, type: 'text'})
     review_text: string;
 
-    @ManyToOne(() => Places, places => places.reviews)
+    @ManyToOne(() => Places, places => places.reviews, { onDelete: 'CASCADE' })
     place: Places;
 }

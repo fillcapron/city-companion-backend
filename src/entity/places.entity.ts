@@ -32,7 +32,7 @@ export class Places extends BaseEntity {
     @OneToMany(() => Reviews, review => review.place)
     reviews: Reviews[];
 
-    @ManyToOne(() => Address, address => address.place)
+    @ManyToOne(() => Address, address => address.places)
     address: Address;
 
     @ManyToOne(() => Categories)

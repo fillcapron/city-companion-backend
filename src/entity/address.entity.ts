@@ -32,5 +32,5 @@ export class Address extends BaseEntity {
     category: Categories;
 
     @OneToMany(() => Places, places => places.address)
-    place: Places[]
+    places: Places[]
 }

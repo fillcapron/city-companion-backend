@@ -10,6 +10,6 @@ export class Images extends BaseEntity {
     @Column({nullable: false, type: 'varchar', length: 255})
     url_path: string;
 
-    @ManyToOne(() => Places, places => places.images)
+    @ManyToOne(() => Places, places => places.images, { onDelete: 'CASCADE' })
     place: Places;
 }
