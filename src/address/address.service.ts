@@ -11,7 +11,7 @@ export class AddressService {
     constructor(@InjectRepository(Address) private readonly repo: Repository<Address>) { }
 
     async getAllAddress(): Promise<Address[]> {
-        return await this.repo.find();
+        return await this.repo.find({relations: ['places', 'categories']});
     }
 
     async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {

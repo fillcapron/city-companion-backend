@@ -28,7 +28,7 @@ export class Address extends BaseEntity {
     @Column({nullable: false, type: "varchar", length: 50})
     longitude: string;
 
-    @ManyToOne(() => Categories)
+    @ManyToOne(() => Categories, categories => categories.address, { onDelete: 'CASCADE' })
     @JoinColumn()
     category: Categories;
 
