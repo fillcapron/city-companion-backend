@@ -15,7 +15,7 @@ export class TagsService {
             return res;
 
         } catch (e) {
-            return { message: 'Ошибка добавления тэга', meta: e }
+            return { error: true, message: 'Ошибка добавления тэга', meta: e }
         }
 
     }
