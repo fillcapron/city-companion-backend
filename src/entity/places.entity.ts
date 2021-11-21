@@ -37,4 +37,7 @@ export class Places extends BaseEntity {
 
     @ManyToOne(() => Categories)
     category: Categories;
+
+    @Column({ type: 'boolean', default: false})
+    published: boolean;
 }
