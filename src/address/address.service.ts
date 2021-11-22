@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Address } from '../entity/address.entity';
 import { CreateAddressDto, IMessage } from './dto/create-address.dto';
 
@@ -14,12 +14,10 @@ export class AddressService {
         return await this.repo.find({ relations: ['places', 'category'] });
     }
 
-    async getAddressId(addr: CreateAddressDto): Promise<IMessage | Address> {
+    async getAddressEntry(addr: CreateAddressDto): Promise<IMessage | Address> {
         const address = await this.repo.findOne({
-            select: ['id'],
-            where: [
-                { city: addr.city, street: addr.street, house: addr.house },
-            ],
+            where: 
+            { city: Like(`%${addr.city}%`) , street: Like(`%${addr.street}%`), house: addr.house },
         });
         if (address) {
             return address;
