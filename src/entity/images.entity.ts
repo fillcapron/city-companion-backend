@@ -7,8 +7,14 @@ export class Images extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({nullable: false, type: 'varchar', length: 55})
+    title: string;
+
     @Column({nullable: false, type: 'varchar', length: 255})
-    url_path: string;
+    full_size: string;
+
+    @Column({nullable: false, type: 'varchar', length: 255})
+    small_size: string;
 
     @ManyToOne(() => Places, places => places.images, { onDelete: 'CASCADE' })
     place: Places;
