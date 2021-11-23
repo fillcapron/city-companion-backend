@@ -9,7 +9,7 @@ export class PlacesController {
     constructor(private readonly service: PlacesService) { }
 
     @Post()
-    create(@Body() dto: CreatePlaceDto): Promise<Places> {
+    create(@Body() dto: CreatePlaceDto): Promise<Places | IMessage> {
         return this.service.createPlace(dto);
     }
 
