@@ -31,8 +31,13 @@ export class AuthService {
     }
 
     async login(userDto: CreateUserDto) {
-        const user = await this.validateUser(userDto);
-        return this.generateToken(user);
+        try {
+            const user = await this.validateUser(userDto);
+            return this.generateToken(user);
+        } catch (e) {
+            return e
+        }
+
     }
 
     private async validateUser(userDto: CreateUserDto) {

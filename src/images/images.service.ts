@@ -15,23 +15,27 @@ export class ImagesService {
         private http: HttpService) { }
 
     async create(image): Promise<void> {
-        console.log(image)
-        const options = {
-            key: process.env.KEY_UPLOAD_IMG,
-            image: image
+
+        const options:any = {
+            "key": '6bc5e52e6e7269527190e01f01479346'
         }
-        try {
-            const response = await this.http.axiosRef.post(process.env.URL_UPLOAD_IMG, options);
-            if (response.status === 200) {
-                const title: any = response.data
-                console.log(title)
-                // this.repo.save({
-                //     title: title
-                // })
-            }
-        } catch(e) {
-            console.log(e)
-        }
+        await this.http.post(process.env.URL_UPLOAD_IMG, image, options).subscribe(
+            res => console.log(res),
+            err => console.log(err.response.data)
+        );
+        // try {
+        //     const response = await this.http.axiosRef.post(process.env.URL_UPLOAD_IMG, options);
+        //     if (response.status === 200) {
+        //         const title: any = response.data
+        //         console.log(title)
+        //         // this.repo.save({
+        //         //     title: title
+        //         // })
+        //     }
+
+        // } catch(e) {
+        //     console.log(e)
+        // }
         
         
     }
