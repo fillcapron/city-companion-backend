@@ -7,9 +7,6 @@ export class Images extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({nullable: false, type: 'varchar', length: 55})
-    title: string;
-
     @Column({nullable: false, type: 'varchar', length: 255})
     url: string;
     
