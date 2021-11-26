@@ -34,8 +34,8 @@ export class AuthService {
         try {
             const user = await this.validateUser(userDto);
             return this.generateToken(user);
-        } catch (e) {
-            return e
+        } catch (error) {
+            return error;
         }
 
     }
@@ -46,6 +46,6 @@ export class AuthService {
         if (user && passwordEquals) {
             return user;
         }
-        throw new UnauthorizedException({ message: 'Некорректный email или пароль' })
+        throw new UnauthorizedException('Некорректный email или пароль');
     }
 }
