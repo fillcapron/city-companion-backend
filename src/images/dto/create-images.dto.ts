@@ -1,4 +1,4 @@
 export class CreateImagesDto {
-    id: number;
-    image: FormData;
+    title: string;
+    placeId: number;
 }
