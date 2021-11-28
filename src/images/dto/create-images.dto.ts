@@ -1,4 +1,9 @@
 export class CreateImagesDto {
-    title: string;
+    url: string
     placeId: number;
+}
+
+export class UploadImage {
+    name: string;
+    url: string;
 }

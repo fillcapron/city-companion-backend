@@ -5,7 +5,7 @@ import { IMessage } from 'src/address/dto/create-address.dto';
 import { Images } from 'src/entity/images.entity';
 import { Repository } from 'typeorm';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
-import { CreateImagesDto } from './dto/create-images.dto';
+import { CreateImagesDto, UploadImage } from './dto/create-images.dto';
 require('dotenv').config();
 
 @Injectable()
@@ -16,22 +16,23 @@ export class ImagesService {
         private repo: Repository<Images>,
         private cloudinary: CloudinaryService) { }
 
-    async create(file: Express.Multer.File, dto: CreateImagesDto): Promise<Images | IMessage> {
+    async upload(file: Express.Multer.File): Promise<UploadImage | BadRequestException> {
         const upload = await this.cloudinary.uploadImage(file).catch((e) => {
             throw new BadRequestException(e);
         });
+        return {url: upload.url, name: upload.name};
+    }
 
+    async create(images: CreateImagesDto[]) {
         try {
-            const image = await this.repo.save({
-                url: upload.url,
-                ...dto
-            });
-
-            return image;
+            return await this.repo.createQueryBuilder()
+                .insert()
+                .into(Images)
+                .values(images)
+                .execute();
 
         } catch (e) {
-
-            return { error: true, message: 'Ошибка добавления изображения' }
+            return { error: true, message: 'Ошибка добавления изображения', meta: e }
         }
     }
 }

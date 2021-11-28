@@ -29,7 +29,7 @@ export class TagsController {
     }
 
     @Post('all')
-    createTags(@Body() tags: Tags[]) {
+    createTags(@Body() tags: createTagsDto[]) {
         return this.tagsService.CreateTags(tags);
     }
 }

@@ -36,10 +36,10 @@ export class AddressService {
         }
     }
 
-    async createAddress(addr: CreateAddressDto): Promise<Address | IMessage> {
+    async createAddress(addr: CreateAddressDto): Promise<IMessage> {
         try {
             const address = await this.repo.create(addr).save();
-            return address;
+            return {error: false, message: 'Адрес создан', meta: address};
         } catch (e) {
             return { error: true, message: 'Ошибка создания адреса', meta: e };
         }

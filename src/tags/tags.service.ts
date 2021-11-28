@@ -37,7 +37,7 @@ export class TagsService {
         }
     }
 
-    async CreateTags(tags: Tags[]) {
+    async CreateTags(tags: createTagsDto[]) {
         try {
             return await this.repo.createQueryBuilder()
                 .insert()

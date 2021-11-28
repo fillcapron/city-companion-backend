@@ -15,7 +15,7 @@ export class PlacesService {
         const address: number = dto.address && dto.address.id;
 
         try {
-            return await this.repoPlace.save({
+            const place = await this.repoPlace.save({
                 name: dto.name,
                 description: dto.description,
                 website: dto.website,
@@ -23,10 +23,13 @@ export class PlacesService {
                 category: { id: category },
                 address: { id: address }
             });
-        } catch(e) {
-            return {error: true, message: 'Ошибка добавления места', meta: e}
+
+            return { error: false, message: 'Место добавлено', meta: place };
+
+        } catch (e) {
+            return { error: true, message: 'Ошибка добавления места', meta: e };
         }
-        
+
     }
 
     async getOnePlace(name: string): Promise<Places> {
@@ -39,11 +42,11 @@ export class PlacesService {
 
     async deletePlace(id: number): Promise<IMessage> {
         const place = await this.repoPlace.delete(id);
-        return { message: 'Место удалено', meta: place };
+        return { error: false, message: 'Место удалено', meta: place };
     }
 
     public async updatePlace(dto: CreatePlaceDto): Promise<IMessage> {
         const place = await this.repoPlace.update(dto.id, dto)
-        return { message: 'Место обновлено', meta: place };
+        return { error: false, message: 'Место обновлено', meta: place };
     }
 }
