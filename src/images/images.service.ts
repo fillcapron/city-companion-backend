@@ -23,7 +23,7 @@ export class ImagesService {
         return {url: upload.url, name: upload.name};
     }
 
-    async create(images: CreateImagesDto[]) {
+    async saveImages(images: CreateImagesDto[]) {
         try {
             return await this.repo.createQueryBuilder()
                 .insert()

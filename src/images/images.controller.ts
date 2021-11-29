@@ -19,6 +19,6 @@ export class ImagesController {
 
     @Post('save')
     create(@Body() images: CreateImagesDto[]) {
-        return this.service.create(images);
+        return this.service.saveImages(images);
     }
 }
