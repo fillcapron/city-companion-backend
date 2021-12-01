@@ -41,12 +41,21 @@ export class PlacesService {
     }
 
     async deletePlace(id: number): Promise<IMessage> {
-        const place = await this.repoPlace.delete(id);
-        return { error: false, message: 'Место удалено', meta: place };
+        try {
+            const place = await this.repoPlace.delete(id);
+            return { error: false, message: 'Место удалено', meta: place };
+        } catch (e) {
+            return { error: true, message: 'Ошибка удаления места', meta: e }
+        }
     }
 
     public async updatePlace(dto: CreatePlaceDto): Promise<IMessage> {
-        const place = await this.repoPlace.update(dto.id, dto)
-        return { error: false, message: 'Место обновлено', meta: place };
+        try {
+            const place = await this.repoPlace.update(dto.id, dto)
+            return { error: false, message: 'Место обновлено', meta: place };
+        } catch (e) {
+            return { error: true, message: 'Ошибка обновления места', meta: e }
+        }
+
     }
 }
