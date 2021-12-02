@@ -20,7 +20,7 @@ export class ImagesService {
         const upload = await this.cloudinary.uploadImage(file).catch((e) => {
             throw new BadRequestException(e);
         });
-        return {url: upload.url, name: upload.name};
+        return { url: upload.url, name: upload.name };
     }
 
     async saveImages(images: CreateImagesDto[]) {
@@ -33,6 +33,15 @@ export class ImagesService {
 
         } catch (e) {
             return { error: true, message: 'Ошибка добавления изображения', meta: e }
+        }
+    }
+
+    async deleteImage(id: number): Promise<IMessage> {
+        try {
+            const image = this.repo.delete(id);
+            return { error: false, message: 'Изображение удалено', meta: image };
+        } catch (e) {
+            return { error: true, message: 'Ошибка удаления изображение', meta: e };
         }
     }
 }
