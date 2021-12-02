@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImagesService } from './images.service';
 import { Express } from 'express';
@@ -20,5 +20,10 @@ export class ImagesController {
     @Post('save')
     create(@Body() images: CreateImagesDto[]) {
         return this.service.saveImages(images);
+    }
+
+    @Delete(':id')
+    delete(@Param() id: number): Promise<IMessage> {
+        return this.service.deleteImage(id);
     }
 }
