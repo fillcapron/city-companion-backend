@@ -18,5 +18,5 @@ export class Categories extends BaseEntity{
     address: Address[];
 
     @OneToMany(() => Places, place => place.category)
-    place: Places[];
+    places: Places[];
 }
