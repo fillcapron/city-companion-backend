@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsString } from "class-validator";
+import { IsInt, IsNumber, IsString } from "class-validator";
 import { Categories } from "src/entity/category.entity";
 import { Places } from "src/entity/places.entity";
 
@@ -22,11 +22,11 @@ export class CreateAddressDto {
     @IsString({message: 'Должно быть строкой'})
     readonly house: string;
 
-    @IsString({message: 'Должно быть строкой'})
-    latitude: string;
+    @IsInt({message: 'Должно быть числом'})
+    latitude: number;
 
-    @IsString({message: 'Должно быть строкой'})
-    longitude: string;
+    @IsInt({message: 'Должно быть числом'})
+    longitude: number;
 
     @Type(() => Categories)
     category: Categories;
