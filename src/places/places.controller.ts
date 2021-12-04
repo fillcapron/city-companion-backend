@@ -15,7 +15,7 @@ export class PlacesController {
 
     @Get()
     getAll(): Promise<Places[]> {
-        return this.service.getPlaces();
+        return this.service.getAllPlaces();
     }
 
     @Get(':id')
@@ -31,5 +31,10 @@ export class PlacesController {
     @Patch()
     update(@Body() dto: CreatePlaceDto): Promise<IMessage> {
         return this.service.updatePlace(dto);
+    }
+
+    @Get('/category/:name')
+    getPlaces(@Param() name: string): Promise<any> {
+        return this.service.getPlacesByCategory(name);
     }
 }

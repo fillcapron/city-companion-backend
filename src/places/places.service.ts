@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IMessage } from 'src/address/dto/create-address.dto';
 import { Address } from 'src/entity/address.entity';
+import { Categories } from 'src/entity/category.entity';
 import { Places } from 'src/entity/places.entity';
 import { Repository } from 'typeorm';
 import { CreatePlaceDto } from './dto/create-place.dto';
@@ -36,7 +37,7 @@ export class PlacesService {
         return await this.repoPlace.findOneOrFail(name);
     }
 
-    async getPlaces() {
+    async getAllPlaces() {
         return await this.repoPlace.find({ relations: ['category', 'tags', 'images', 'address'] });
     }
 
@@ -49,7 +50,7 @@ export class PlacesService {
         }
     }
 
-    public async updatePlace(dto: CreatePlaceDto): Promise<IMessage> {
+    async updatePlace(dto: CreatePlaceDto): Promise<IMessage> {
         try {
             const place = await this.repoPlace.update(dto.id, dto)
             return { error: false, message: 'Место обновлено', meta: place };
@@ -57,5 +58,19 @@ export class PlacesService {
             return { error: true, message: 'Ошибка обновления места', meta: e }
         }
 
+    }
+
+    async getPlacesByCategory(categoryName: string): Promise<any> {
+        try {
+            return this.repoPlace.find({
+                join: { alias: 'place', innerJoin: { places: 'place.category' } },
+                where: {
+                    category: categoryName
+                },
+                relations: ['images']
+            })
+        } catch (e) {
+            return e
+        }
     }
 }
