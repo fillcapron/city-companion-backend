@@ -22,10 +22,10 @@ export class Address extends BaseEntity {
     @Column({ nullable: false, type: "varchar", length: 10 })
     house: string;
 
-    @Column({ nullable: true, type: "int" })
+    @Column({ nullable: true, type: "real" })
     latitude: number;
 
-    @Column({ nullable: true, type: "int" })
+    @Column({ nullable: true, type: "real" })
     longitude: number;
 
     @ManyToOne(() => Categories, categories => categories.address, { onDelete: 'CASCADE' })
