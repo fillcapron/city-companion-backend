@@ -10,7 +10,7 @@ export class CategoryService {
     constructor(@InjectRepository(Categories) private readonly repo: Repository<Categories>) { }
 
     async getAllCategoties(): Promise<Categories[]> {
-        return await this.repo.find({ relations: ['tags', 'places'] });
+        return await this.repo.find();
     }
 
     async getOneCategory(id: number): Promise<Categories | {}> {
@@ -26,19 +26,28 @@ export class CategoryService {
         try {
             const category = await this.repo.save(categoryDto);
             const done = await category;
-            return { message: `Категория "${done.name}" добавлена`,meta: done };
+            return { error: false, message: `Категория "${done.name}" добавлена`, meta: done };
         } catch (e) {
             return { error: true, message: 'Ошибка создания категории', meta: e }
         }
     }
 
     async updateGategory(dto: CreateCategoryDto): Promise<IMessage> {
-        const category = await this.repo.update(dto.id, dto);
-        return { message: 'Категория обновлена', meta: category }
+        try {
+            const category = await this.repo.update(dto.id, dto);
+            return { message: 'Категория обновлена', meta: category }
+        } catch (e) {
+            return { error: true, message: 'Ошибка обновления категории', meta: e }
+        }
+
     }
 
     async deleteCategory(id: number): Promise<IMessage> {
-        const category = await this.repo.delete(id);
-        return { message: `Категория  удалена`, meta: category }
+        try {
+            const category = await this.repo.delete(id);
+            return { message: 'Категория  удалена', meta: category };
+        } catch (e) {
+            return { message: 'Ошибка удаления категории', meta: e };
+        }
     }
 }
