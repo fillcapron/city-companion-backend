@@ -21,6 +21,7 @@ export class PlacesService {
                 description: dto.description,
                 website: dto.website,
                 published: dto.published,
+                phone: dto.phone,
                 category: { id: category },
                 address: { id: address }
             });

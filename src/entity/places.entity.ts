@@ -23,6 +23,9 @@ export class Places extends BaseEntity {
     @Column({ type: 'varchar', length: 100 })
     website: string;
 
+    @Column({ type: 'text', nullable: true, unique: true })
+    phone: string;
+
     @OneToMany(() => Tags, tag => tag.place)
     tags: Tags[];
 

@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsBoolean, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsPhoneNumber, IsString } from "class-validator";
 import { Address } from "src/entity/address.entity";
 import { Categories } from "src/entity/category.entity";
 
@@ -13,6 +13,8 @@ export class CreatePlaceDto {
     description: string;
     @Type(() => Categories)
     category: Categories;
+    @IsPhoneNumber('RU')
+    phone: string;
     @IsNumber({}, {message: 'Должно быть числом'})
     rating: number;
     @IsString({message: 'Должно быть строкой'})
