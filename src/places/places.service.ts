@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IMessage } from 'src/address/dto/create-address.dto';
 import { Address } from 'src/entity/address.entity';
@@ -59,6 +59,16 @@ export class PlacesService {
             return { error: true, message: 'Ошибка обновления места', meta: e }
         }
 
+    }
+
+    async changePublished(id: number, { isPublished }): Promise<void> {
+        try {
+            await this.repoPlace.update(id, {
+                published: isPublished
+            });
+        } catch (e) {
+            throw new BadRequestException();
+        }
     }
 
     async getPlacesByCategory(categoryName: string): Promise<any> {

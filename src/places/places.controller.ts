@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
 import { IMessage } from 'src/address/dto/create-address.dto';
 import { Places } from 'src/entity/places.entity';
 import { CreatePlaceDto } from './dto/create-place.dto';
@@ -11,6 +11,11 @@ export class PlacesController {
     @Post()
     create(@Body() dto: CreatePlaceDto): Promise<Places | IMessage> {
         return this.service.createPlace(dto);
+    }
+
+    @Put('published/:id')
+    changePublished(@Param() id: number, @Body() dto: { isPublished: boolean }): Promise<any> {
+        return this.service.changePublished(id, dto);
     }
 
     @Get()
