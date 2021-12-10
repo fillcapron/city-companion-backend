@@ -35,7 +35,7 @@ export class PlacesService {
     }
 
     async getOnePlace(name: string): Promise<Places> {
-        return await this.repoPlace.findOneOrFail(name);
+        return await this.repoPlace.findOneOrFail(name, { relations: ['category', 'tags', 'images', 'address', 'reviews'] });
     }
 
     async getAllPlaces() {
