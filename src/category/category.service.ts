@@ -10,7 +10,7 @@ export class CategoryService {
     constructor(@InjectRepository(Categories) private readonly repo: Repository<Categories>) { }
 
     async getAllCategoties(): Promise<Categories[]> {
-        return await this.repo.find();
+        return await this.repo.find({ relations: ['tags'] });
     }
 
     async getOneCategory(id: number): Promise<Categories | {}> {
