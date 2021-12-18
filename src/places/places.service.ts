@@ -78,7 +78,7 @@ export class PlacesService {
                 where: {
                     category: categoryName
                 },
-                relations: ['images', 'address']
+                relations: ['images', 'address', 'reviews']
             })
         } catch (e) {
             return e
