@@ -39,7 +39,7 @@ export class PlacesService {
     }
 
     async getAllPlaces() {
-        return await this.repoPlace.find({ relations: ['category', 'tags', 'images', 'address'] });
+        return await this.repoPlace.find({ relations: ['category', 'tags', 'images', 'address', 'reviews'] });
     }
 
     async deletePlace(id: number): Promise<IMessage> {
