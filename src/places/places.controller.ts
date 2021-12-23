@@ -23,7 +23,7 @@ export class PlacesController {
         return this.service.getAllPlaces();
     }
 
-    @Get(':id')
+    @Get(':name')
     getOne(@Param() name: string): Promise<Places> {
         return this.service.getOnePlace(name);
     }
