@@ -97,7 +97,8 @@ export class PlacesService {
         return await this.repoPlace.find({
             order: {
                 'views': 'DESC'
-            }
+            },
+            take: 10
         });
     }
 }
