@@ -14,7 +14,7 @@ export class PlacesController {
     }
 
     @Put('published/:id')
-    changePublished(@Param() id: number, @Body() dto: { isPublished: boolean }): Promise<any> {
+    changePublished(@Param() id: number, @Body() dto: { isPublished: boolean }): Promise<void> {
         return this.service.changePublished(id, dto);
     }
 
@@ -41,5 +41,10 @@ export class PlacesController {
     @Get('/category/:name')
     getPlaces(@Param() name: string): Promise<any> {
         return this.service.getPlacesByCategory(name);
+    }
+
+    @Put('views/:id')
+    updateViews(@Param() id: number, @Body() dto: { views: number }): Promise<void> {
+        return this.service.updateViewsPlace(id, dto);
     }
 }

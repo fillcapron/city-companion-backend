@@ -1,8 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IMessage } from 'src/address/dto/create-address.dto';
-import { Address } from 'src/entity/address.entity';
-import { Categories } from 'src/entity/category.entity';
 import { Places } from 'src/entity/places.entity';
 import { Repository } from 'typeorm';
 import { CreatePlaceDto } from './dto/create-place.dto';
@@ -82,6 +80,16 @@ export class PlacesService {
             })
         } catch (e) {
             return e
+        }
+    }
+
+    async updateViewsPlace(id: number, { views }): Promise<void> {
+        try {
+            await this.repoPlace.update(id, {
+                views
+            });
+        } catch (e) {
+            throw new BadRequestException();
         }
     }
 }
