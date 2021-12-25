@@ -92,4 +92,12 @@ export class PlacesService {
             throw new BadRequestException();
         }
     }
+
+    async popularPlaces(): Promise<Places[]> {
+        return await this.repoPlace.find({
+            order: {
+                'views': 'DESC'
+            }
+        });
+    }
 }

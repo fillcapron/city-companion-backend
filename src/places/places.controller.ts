@@ -47,4 +47,9 @@ export class PlacesController {
     updateViews(@Param() id: number, @Body() dto: { views: number }): Promise<void> {
         return this.service.updateViewsPlace(id, dto);
     }
+
+    @Get('/popular/all')
+    getPopularPlaces(): Promise<Places[]> {
+        return this.service.popularPlaces();
+    }
 }
