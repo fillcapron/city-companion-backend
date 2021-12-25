@@ -98,6 +98,7 @@ export class PlacesService {
             order: {
                 'views': 'DESC'
             },
+            relations: ['images'],
             take: 10
         });
     }
