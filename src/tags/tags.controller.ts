@@ -18,8 +18,8 @@ export class TagsController {
         return this.tagsService.getAllTags();
     }
 
-    @Get(':id')
-    getOne(@Param('id') name: string): Promise<Tags> {
+    @Get(':name')
+    getOne(@Param() name: string): Promise<Tags> {
         return this.tagsService.getOneTag(name);
     }
 
@@ -30,6 +30,11 @@ export class TagsController {
 
     @Post('all')
     createTags(@Body() tags: createTagsDto[]) {
-        return this.tagsService.CreateTags(tags);
+        return this.tagsService.createTags(tags);
+    }
+
+    @Get('search/:query')
+    search(@Param() query: { query: string }) {
+        return this.tagsService.getPlaceOrCategory(query);
     }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IMessage } from 'src/address/dto/create-address.dto';
 import { Tags } from 'src/entity/tags.entity';
-import { Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 import { createTagsDto } from './dto/create-tags.dto';
 
 @Injectable()
@@ -37,7 +37,7 @@ export class TagsService {
         }
     }
 
-    async CreateTags(tags: createTagsDto[]) {
+    async createTags(tags: createTagsDto[]) {
         try {
             return await this.repo.createQueryBuilder()
                 .insert()
@@ -47,5 +47,15 @@ export class TagsService {
         } catch (e) {
             return { erorr: true, message: 'Ошибка добавления тегов', meta: e }
         }
+    }
+
+    async getPlaceOrCategory({query}) {
+        return await this.repo.createQueryBuilder('tags')
+        .select(['tags.id'])
+        .where({name: ILike(`%${query}%`)})
+        .leftJoin('tags.place', 'places')
+        .leftJoin('tags.category', 'categories')
+        .addSelect(['places.id', 'places.name', 'categories.id', 'categories.name'])
+        .getMany()
     }
 }
