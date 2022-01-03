@@ -28,4 +28,9 @@ export class ReviewsController {
     delete(@Param() id: number): Promise<IMessage> {
         return this.reviewsService.deleteReview(id);
     }
+
+    @Get('/rating/:id')
+    getRating(@Param() id: {id: number}): Promise<any>{
+        return this.reviewsService.getRatingPlace(id);
+    }
 }

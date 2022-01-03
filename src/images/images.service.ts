@@ -1,4 +1,3 @@
-import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IMessage } from 'src/address/dto/create-address.dto';

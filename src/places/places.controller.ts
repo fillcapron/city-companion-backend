@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { IMessage } from 'src/address/dto/create-address.dto';
 import { Places } from 'src/entity/places.entity';
+import { ReviewsService } from 'src/reviews/reviews.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { PlacesService } from './places.service';
 
 @Controller('places')
 export class PlacesController {
-    constructor(private readonly service: PlacesService) { }
+    constructor(private readonly service: PlacesService, private readonly serviceReviews: ReviewsService) { }
 
     @Post()
     create(@Body() dto: CreatePlaceDto): Promise<Places | IMessage> {
@@ -24,8 +25,10 @@ export class PlacesController {
     }
 
     @Get(':name')
-    getOne(@Param() name: string): Promise<Places> {
-        return this.service.getOnePlace(name);
+    async getOne(@Param() name: string): Promise<Places> {
+        const place = await this.service.getOnePlace(name);
+        const rating = await this.serviceReviews.getRatingPlace({ id: place.id });
+        return Object.assign(place, rating);
     }
 
     @Delete(':id')

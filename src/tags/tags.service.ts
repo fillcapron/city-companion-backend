@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IMessage } from 'src/address/dto/create-address.dto';
 import { Tags } from 'src/entity/tags.entity';
-import { ILike, Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { createTagsDto } from './dto/create-tags.dto';
 
 @Injectable()
