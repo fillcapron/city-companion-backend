@@ -93,6 +93,16 @@ export class PlacesService {
         }
     }
 
+    async updateRatingPlace<T>(id: T, rating: number): Promise<void> {
+        try {
+            await this.repoPlace.update(id, {
+                rating
+            });
+        } catch (e) {
+            throw new BadRequestException();
+        }
+    }
+
     async popularPlaces(): Promise<Places[]> {
         return await this.repoPlace.find({
             order: {
