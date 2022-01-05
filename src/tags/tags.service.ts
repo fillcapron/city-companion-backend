@@ -49,13 +49,18 @@ export class TagsService {
         }
     }
 
-    async getPlaceOrCategory({query}) {
-        return await this.repo.createQueryBuilder('tags')
-        .select(['tags.id'])
-        .where({name: ILike(`%${query}%`)})
-        .leftJoin('tags.place', 'places')
-        .leftJoin('tags.category', 'categories')
-        .addSelect(['places.id', 'places.name', 'categories.id', 'categories.name'])
-        .getMany()
+    async getPlaceOrCategory({ query }) {
+        const searchResult: any = await this.repo.createQueryBuilder('tags')
+            .select(['tags.id'])
+            .where({ name: ILike(`%${query}%`) })
+            .leftJoin('tags.place', 'places', 'places.published = :published', { published: true })
+            .leftJoin('tags.category', 'categories')
+            .addSelect(['places.id', 'places.name', 'categories.id', 'categories.name'])
+            .getMany()
+
+        if (searchResult.some((result) => Boolean(result.place) || Boolean(result.category))) {
+            return searchResult;
+        }
+        return [];
     }
 }
