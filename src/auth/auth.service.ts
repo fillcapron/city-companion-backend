@@ -33,7 +33,8 @@ export class AuthService {
     async login(userDto: CreateUserDto) {
         try {
             const user = await this.validateUser(userDto);
-            return this.generateToken(user);
+            const token = this.generateToken(user);
+            return { name: user.name, ...token };
         } catch (error) {
             return error;
         }
