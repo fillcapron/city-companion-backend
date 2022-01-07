@@ -16,8 +16,8 @@ export class AddressService {
 
     async getAddressEntry(addr: CreateAddressDto): Promise<IMessage | Address> {
         const address = await this.repo.findOne({
-            where: 
-            { city: Like(`%${addr.city}%`) , street: Like(`%${addr.street}%`), house: addr.house },
+            where:
+                { city: Like(`%${addr.city}%`), street: Like(`%${addr.street}%`), house: addr.house },
         });
         if (address) {
             return address;
@@ -39,7 +39,7 @@ export class AddressService {
     async createAddress(addr: CreateAddressDto): Promise<IMessage> {
         try {
             const address = await this.repo.create(addr).save();
-            return {error: false, message: 'Адрес создан', meta: address};
+            return { error: false, message: 'Адрес создан', meta: address };
         } catch (e) {
             return { error: true, message: 'Ошибка создания адреса', meta: e };
         }
@@ -55,8 +55,8 @@ export class AddressService {
         return { message: 'Адрес обновлен', meta: address };
     }
 
-    async totalAddress(): Promise<{address: number}> {
+    async totalAddress(): Promise<{ name: string, total: number, icon: string }> {
         const total = await this.repo.count();
-        return {address: total};
+        return { name: 'Адреса', total: total, icon: 'location_on' };
     }
 }

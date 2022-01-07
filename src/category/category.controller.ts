@@ -36,7 +36,7 @@ export class CategoryController {
     }
 
     @Get('/total/all')
-    getTotal(): Promise<{categories: number}> {
+    getTotal(): Promise<{ name: string, total: number, icon: string }> {
         return this.service.totalCategories();
     }
 }

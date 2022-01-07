@@ -47,8 +47,8 @@ export class UserService {
         return { message: 'Пользователь обновлен' }
     }
 
-    async totalUsers(): Promise<{users: number}> {
+    async totalUsers(): Promise<{ name: string, total: number, icon: string }> {
         const total = await this.repo.count();
-        return { users: total };
+        return { name: 'Пользователи', total: total, icon: 'person' };
     }
 }

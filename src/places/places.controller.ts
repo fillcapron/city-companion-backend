@@ -54,7 +54,7 @@ export class PlacesController {
     }
 
     @Get('/total/all')
-    getTotal(): Promise<{places: number}> {
+    getTotal(): Promise<{ name: string, total: number, icon: string }> {
         return this.service.totalPlaces();
     }
 }

@@ -51,8 +51,8 @@ export class CategoryService {
         }
     }
 
-    async totalCategories(): Promise<{ categories: number }> {
+    async totalCategories(): Promise<{ name: string, total: number, icon: string }> {
         const total = await this.repo.count();
-        return { categories: total };
+        return { name: 'Категории', total: total, icon: 'apps' };
     }
 }

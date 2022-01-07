@@ -65,7 +65,7 @@ export class AddressController {
     }
 
     @Get('/total/all')
-    getTotal(): Promise<{address: number}> {
+    getTotal(): Promise<{ name: string, total: number, icon: string }> {
         return this.service.totalAddress();
     }
 }

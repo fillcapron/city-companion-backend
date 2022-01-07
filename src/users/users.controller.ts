@@ -35,7 +35,7 @@ export class AuthController {
     }
 
     @Get('/total/all')
-    getTotal(): Promise<{users: number}> {
+    getTotal(): Promise<{ name: string, total: number, icon: string }> {
         return this.userService.totalUsers();
     }
 }
