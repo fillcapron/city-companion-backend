@@ -54,4 +54,9 @@ export class AddressService {
         const address = this.repo.update(dto.id, dto);
         return { message: 'Адрес обновлен', meta: address };
     }
+
+    async totalAddress(): Promise<{address: number}> {
+        const total = await this.repo.count();
+        return {address: total};
+    }
 }

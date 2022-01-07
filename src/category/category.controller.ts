@@ -34,4 +34,9 @@ export class CategoryController {
     ): Promise<IMessage> {
         return this.service.updateGategory(dto);
     }
+
+    @Get('/total/all')
+    getTotal(): Promise<{categories: number}> {
+        return this.service.totalCategories();
+    }
 }

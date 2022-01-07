@@ -63,5 +63,10 @@ export class AddressController {
     update(@Body() addressDto: CreateAddressDto): Promise<IMessage> {
         return this.service.updateAddress(addressDto);
     }
+
+    @Get('/total/all')
+    getTotal(): Promise<{address: number}> {
+        return this.service.totalAddress();
+    }
 }
 

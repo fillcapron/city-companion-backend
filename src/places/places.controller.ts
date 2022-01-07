@@ -52,4 +52,9 @@ export class PlacesController {
     getPopularPlaces(): Promise<Places[]> {
         return this.service.popularPlaces();
     }
+
+    @Get('/total/all')
+    getTotal(): Promise<{places: number}> {
+        return this.service.totalPlaces();
+    }
 }

@@ -50,4 +50,9 @@ export class CategoryService {
             return { message: 'Ошибка удаления категории', meta: e };
         }
     }
+
+    async totalCategories(): Promise<{ categories: number }> {
+        const total = await this.repo.count();
+        return { categories: total };
+    }
 }

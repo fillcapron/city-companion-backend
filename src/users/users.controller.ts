@@ -34,4 +34,8 @@ export class AuthController {
         return this.userService.updateUser(dto);
     }
 
+    @Get('/total/all')
+    getTotal(): Promise<{users: number}> {
+        return this.userService.totalUsers();
+    }
 }

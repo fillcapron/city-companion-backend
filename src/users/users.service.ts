@@ -27,7 +27,7 @@ export class UserService {
     }
 
     async getAllUsers(): Promise<User[]> {
-        const users = await this.repo.find({select: ['id', 'name', 'email']});
+        const users = await this.repo.find({ select: ['id', 'name', 'email'] });
         return users;
     }
 
@@ -43,7 +43,12 @@ export class UserService {
 
     async updateUser(userDto: CreateUserDto): Promise<IMessage> {
         const hashPassword = await bcrypt.hash(userDto.password, 5);
-        const user = await this.repo.update(userDto.id, {...userDto, password: hashPassword });
-        return {message: 'Пользователь обновлен'}
+        const user = await this.repo.update(userDto.id, { ...userDto, password: hashPassword });
+        return { message: 'Пользователь обновлен' }
+    }
+
+    async totalUsers(): Promise<{users: number}> {
+        const total = await this.repo.count();
+        return { users: total };
     }
 }

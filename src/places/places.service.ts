@@ -112,4 +112,9 @@ export class PlacesService {
             take: 10
         });
     }
+
+    async totalPlaces(): Promise<{ places: number }> {
+        const total = await this.repoPlace.count();
+        return { places: total }
+    }
 }
